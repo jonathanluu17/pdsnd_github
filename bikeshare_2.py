@@ -196,7 +196,13 @@ def main():
 
         if df.empty:
             print('No matching data for these filters')
-            restart = input('\nWould you like to restart? Enter yes or no.\n')
+            invalid = True
+            while invalid:
+                restart = input('\nWould you like to restart? Enter yes or no.\n')
+                if restart.lower() not in ['yes',  'no']:
+                    print('Invalid input, please type yes or no')
+                else:
+                    invalid = False
             if restart.lower() != 'yes':
                 break
         else: 
@@ -206,7 +212,13 @@ def main():
             user_stats(df)
             view_raw_data(df)
 
-            restart = input('\nWould you like to restart? Enter yes or no.\n')
+            invalid = True
+            while invalid:
+                restart = input('\nWould you like to restart? Enter yes or no.\n')
+                if restart.lower() not in ['yes', 'no']:
+                    print('Invalid input, please type yes or no')
+                else:
+                    invalid = False
             if restart.lower() != 'yes':
                 break
 
