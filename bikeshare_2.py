@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import calendar  #use this co convert integer back to day of week
 
+#used to pull proper csv files after user input
 CITY_DATA = { 'chicago': 'chicago.csv',
               'new york city': 'new_york_city.csv',
               'washington': 'washington.csv' }
@@ -24,8 +25,7 @@ def get_filters():
     # get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
     invalid = True
     while invalid:
-        city = input('Please enter either chicago, new york city, or washington: ')
-        city = city.lower()
+        city = input('Please enter either chicago, new york city, or washington: ').lower()
         if city not in ['chicago', 'new york city', 'washington']:
             print('Invalid input')
         else:
@@ -34,8 +34,7 @@ def get_filters():
     # get user input for month (all, january, february, ... , june)
     invalid = True
     while invalid:
-        month = input('Please enter a month january - december or "all": ')
-        month = month.lower()
+        month = input('Please enter a month january - december or "all": ').lower()
         if month not in ['all', 'january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december']:
             print('Invalid input')
         else:
@@ -44,8 +43,7 @@ def get_filters():
     # get user input for day of week (all, monday, tuesday, ... sunday)
     invalid = True
     while invalid:
-        day = input('Please enter a day of the week monday-friday or "all": ')
-        day = day.lower()
+        day = input('Please enter a day of the week monday-friday or "all": ').lower()
         if day not in ['all', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday']:
             print('Invalid input')
         else:
@@ -90,10 +88,10 @@ def time_stats(df):
     start_time = time.time()
 
     # display the most common month
-    print('Most common month of travel is: {}'.format(calendar.month_name[df['Start Time'].dt.month.mode()[0]]))
+    print('Most common month of travel is: {}'.format(calendar.month_name[df['Start Time'].dt.month.mode()[0]])) #use calendar to convert integer to month name
 
     # display the most common day of week
-    print('Most common day of week is: {}'.format(calendar.day_name[df['Start Time'].dt.dayofweek.mode()[0]]))
+    print('Most common day of week is: {}'.format(calendar.day_name[df['Start Time'].dt.dayofweek.mode()[0]])) #use calendar to convert integer to day 
 
     # display the most common start hour
     print('Most common start hour is: {}'.format(df['Start Time'].dt.hour.mode()[0]))
@@ -196,15 +194,33 @@ def main():
         city, month, day = get_filters()
         df = load_data(city, month, day)
 
-        time_stats(df)
-        station_stats(df)
-        trip_duration_stats(df)
-        user_stats(df)
-        view_raw_data(df)
+        if df.empty:
+            print('No matching data for these filters')
+            invalid = True
+            while invalid:
+                restart = input('\nWould you like to restart? Enter yes or no.\n')
+                if restart.lower() not in ['yes',  'no']:
+                    print('Invalid input, please type yes or no')
+                else:
+                    invalid = False
+            if restart.lower() != 'yes':
+                break
+        else: 
+            time_stats(df)
+            station_stats(df)
+            trip_duration_stats(df)
+            user_stats(df)
+            view_raw_data(df)
 
-        restart = input('\nWould you like to restart? Enter yes or no.\n')
-        if restart.lower() != 'yes':
-            break
+            invalid = True
+            while invalid:
+                restart = input('\nWould you like to restart? Enter yes or no.\n')
+                if restart.lower() not in ['yes', 'no']:
+                    print('Invalid input, please type yes or no')
+                else:
+                    invalid = False
+            if restart.lower() != 'yes':
+                break
 
 
 if __name__ == "__main__":
