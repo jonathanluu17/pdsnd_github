@@ -1,17 +1,18 @@
 >**Note**: Please **fork** the current Udacity repository so that you will have a **remote** repository in **your** Github account. Clone the remote repository to your local machine. Later, as a part of the project "Post your Work on Github", you will push your proposed changes to the remote repository in your Github account.
 
 ### Date created
-Include the date you created this project and README file.
+30 SEPTEMBER 2023
 
 ### Project Title
-Replace the Project Title
+Bikeshare Study Project
 
 ### Description
-Describe what your project is about and what it does
+Project reads collected bikeshare data taken from Chicago, New York City, and Washington. Data is filtered via user inputs and displays some interesting bikeshare statistics
 
 ### Files used
-Include the files used
+Bikeshare data is provided by [Motivate](https://motivateco.com/)
 
 ### Credits
-It's important to give proper credit. Add links to any repo that inspired you or blogposts you consulted.
+Baseline code template and data csv's provided by Udacity
+
 
